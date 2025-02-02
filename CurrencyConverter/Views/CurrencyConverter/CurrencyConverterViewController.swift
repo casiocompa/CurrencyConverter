@@ -210,7 +210,32 @@ extension CurrencyConverterViewController: CurrencyConverterContentViewDelegate 
     }
     
     func didTapSelectCurrency(type: ExchangeDirection) {
-#warning("to do")
+        let currencyList: [Currency] = viewModel.currencyList.value
+        let list: [ChooseModalModel] = currencyList.map {
+            ChooseModalModel(
+                iconName: $0.flagImageName,
+                title: $0.shortName,
+                subtitle: $0.description
+            )
+        }
+        let vc = ChooseTableModalViewController(
+            title: Localization.select_currency_title.description,
+            list: list,
+            selectCompletion: {  [weak self] result in
+                guard let self else {
+                    return
+                }
+                
+                if type == .from {
+                    self.viewModel.updateFromCurrency(currencyList[result])
+                } else {
+                    self.viewModel.updateToCurrency(currencyList[result])
+                }
+
+            }
+        )
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: false)
     }
 }
 
