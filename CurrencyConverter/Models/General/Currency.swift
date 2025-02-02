@@ -123,4 +123,16 @@ extension Currency {
         }
         return codesMap[code]
     }
+    
+    static func avalibleCurrencies() -> [Currency] {
+        return Currency.allCases.filter {
+            Config.availableСurrencies.contains($0)
+        }
+    }
+    
+    static func avalibleCurrenciesList() -> [String: Currency] {
+        return codesMap.filter {
+            Config.availableСurrencies.contains($0.value)
+        }
+    }
 }

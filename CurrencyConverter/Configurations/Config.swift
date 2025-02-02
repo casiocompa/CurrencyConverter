@@ -9,6 +9,15 @@
 import Foundation
 
 struct Config {
+    static let availableСurrencies: [Currency] = [
+        .UAH,
+        .USD,
+        .EUR,
+        .GBP,
+        .PLN,
+        .CHF
+    ]
+    
     static var decimalSeparator: String = "."
     static var timeIntervalAutoRefresh: TimeInterval = 10.0
     static var isLoggingEnabled: Bool = false
